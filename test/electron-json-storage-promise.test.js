@@ -57,11 +57,33 @@ describe('electron-json-storage-promise', () => {
     });
   });
 
-  describe('.keys', () => {
-    it('should return array contains all keys', async () => {
+  describe('.remove', () => {
+    it('should be remove key', async () => {
       await storage.set('bar', { bar: 'bar' })
-      const keys = await storage.keys();
-      expect(keys).toEqual(expect.arrayContaining(['foo', 'bar']));
+      await storage.remove('bar');
+
+      fs.pathExists(TEMP_DIR_PATH + '/bar.json').then(result => {
+        expect(result).toBe(false);
+      });
+
+      fs.pathExists(TEMP_DIR_PATH + '/foo.json').then(result => {
+        expect(result).toBe(true);
+      });
+    });
+  });
+
+  describe('.clear', () => {
+    it('should be remove all keys', async () => {
+      await storage.set('bar', { bar: 'bar' })
+      await storage.clear();
+
+      fs.pathExists(TEMP_DIR_PATH + '/bar.json').then(result => {
+        expect(result).toBe(false);
+      });
+
+      fs.pathExists(TEMP_DIR_PATH + '/foo.json').then(result => {
+        expect(result).toBe(false);
+      });
     });
   });
 });
