@@ -34,16 +34,22 @@ describe('electron-json-storage-promise', () => {
   });
 
   describe('.get', () => {
-    it('should return storage object if key exist', () => {
-      storage.get('foo').then(data => {
-        expect(data).toEqual({ foo: 'foo' });
-      });
+    it('should return storage object if key exist', async () => {
+      const result = await storage.get('foo');
+      expect(result).toEqual({ foo: 'foo' });
     });
 
-    it('should return undefined if key not exist', () => {
-      storage.get('bar').then(data => {
-        expect(data).toBeUndefined();
-      });
+    it('should return undefined if key not exist', async () => {
+      const result = await storage.get('bar');
+      expect(result).toBeUndefined();
+    });
+
+    it('should return error object', async () => {
+      try {
+        await storage.get('foo');
+      } catch(err) {
+        expect(err).toMatch('error');
+      }
     });
   });
 
@@ -61,14 +67,19 @@ describe('electron-json-storage-promise', () => {
     it('should be remove key', async () => {
       await storage.set('bar', { bar: 'bar' })
       await storage.remove('bar');
+      const resultFalse = await fs.pathExists(TEMP_DIR_PATH + '/bar.json');
+      const resultTrue = await fs.pathExists(TEMP_DIR_PATH + '/foo.json');
 
-      fs.pathExists(TEMP_DIR_PATH + '/bar.json').then(result => {
-        expect(result).toBe(false);
-      });
+      expect(resultFalse).toBe(false);
+      expect(resultTrue).toBe(true);
+    });
 
-      fs.pathExists(TEMP_DIR_PATH + '/foo.json').then(result => {
-        expect(result).toBe(true);
-      });
+    it('should return error object', async () => {
+      try {
+        await storage.remove('bar');
+      } catch(err) {
+        expect(err).toMatch('error');
+      }
     });
   });
 
@@ -76,14 +87,19 @@ describe('electron-json-storage-promise', () => {
     it('should be remove all keys', async () => {
       await storage.set('bar', { bar: 'bar' })
       await storage.clear();
+      const resultFalse1 = await fs.pathExists(TEMP_DIR_PATH + '/bar.json');
+      const resultFalse2 = await fs.pathExists(TEMP_DIR_PATH + '/foo.json');
 
-      fs.pathExists(TEMP_DIR_PATH + '/bar.json').then(result => {
-        expect(result).toBe(false);
-      });
+      expect(resultFalse1).toBe(false);
+      expect(resultFalse2).toBe(false);
+    });
 
-      fs.pathExists(TEMP_DIR_PATH + '/foo.json').then(result => {
-        expect(result).toBe(false);
-      });
+    it('should return error object', async () => {
+      try {
+        await storage.clear();
+      } catch(err) {
+        expect(err).toMatch('error');
+      }
     });
   });
 });
