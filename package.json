@@ -16,11 +16,15 @@
     "url": "git@github.com:highhi/electron-json-storage-promise.git"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint lib/*.js --fix"
   },
   "devDependencies": {
     "electron": "^1.8.4",
-    "jest": "^22.4.3"
+    "eslint": "^4.19.1",
+    "eslint-plugin-prettier": "^2.6.0",
+    "jest": "^22.4.3",
+    "prettier": "^1.12.0"
   },
   "dependencies": {
     "fs-extra": "^5.0.0",

@@ -1,0 +1,27 @@
+plugins:
+  - prettier
+
+env:
+  browser: true
+  node: true
+  es6: true
+
+rules:
+  # prettier rules
+  prettier/prettier:
+    - 2
+    -
+      trailingComma: es5
+      singleQuote: true
+      semi: true
+
+  # eslint rules
+  prefer-const: 2
+  no-unused-vars: 
+    - 2
+    -
+      argsIgnorePattern: ^_
+      varsIgnorePattern: ^_
+  no-multiple-empty-lines:
+    - 2
+    - max: 1
