@@ -3,11 +3,21 @@
   "version": "0.0.1",
   "description": "",
   "main": "lib/electron-json-storage-promise.js",
+  "author": "highhi",
+  "license": "MIT",
+  "keywords": [
+    "electron",
+    "json",
+    "storage",
+    "promise"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:highhi/electron-json-storage-promise.git"
+  },
   "scripts": {
     "test": "jest"
   },
-  "author": "highhi",
-  "license": "MIT",
   "devDependencies": {
     "electron": "^1.8.4",
     "jest": "^22.4.3"
