@@ -19,14 +19,19 @@ describe('electron-json-storage-promise', () => {
   });
 
   describe('.set', () => {
-    it('should be able to store a valid JSON object', async () => {
+    it('should be able to merge valid JSON properties if key exists', async () => {
+      const data = await storage.set('foo', { baz: 'baz' });
+      expect(data).toEqual({ foo: 'foo', baz: 'baz' });
+    });
+
+    it('should be able to store a valid JSON object if key not exists', async () => {
       const data = await storage.set('bar', { bar: 'bar' });
       const exists = await fs.pathExists(TEMP_DIR_PATH + '/bar.json');
       expect(data).toEqual({ bar: 'bar' });
       expect(exists).toBe(true);
     });
 
-    it('should throw erro if invalid second argument', () => {
+    it('should throw error if invalid second argument', () => {
       expect(() => {
         storage.set(TEMP_FILE, 'baz');
       }).toThrow('The second argument must be a plain object.');
@@ -39,9 +44,9 @@ describe('electron-json-storage-promise', () => {
       expect(result).toEqual({ foo: 'foo' });
     });
 
-    it('should return undefined if key not exist', async () => {
+    it('should return empty object if key not exist', async () => {
       const result = await storage.get('bar');
-      expect(result).toBeUndefined();
+      expect(result).toEqual({});
     });
 
     it('should return error object', async () => {
