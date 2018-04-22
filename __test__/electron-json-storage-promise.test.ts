@@ -2,7 +2,7 @@
 
 import * as fs from 'fs-extra'
 import * as path from 'path'
-import * as storage from '../lib/electron-json-storage-promise'
+import * as storage from '../src/electron-json-storage-promise'
 
 const TEMP_FILE = 'foo.json'
 const TEMP_DIR_PATH = path.join(__dirname, '../tmp')
