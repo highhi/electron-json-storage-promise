@@ -19,7 +19,8 @@
     "build": "tsc -p .",
     "test": "jest",
     "lint": "tslint src/**/*.ts, __test__/**/*.ts",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "prepublish": "npm run build"
   },
   "jest": {
     "transform": { "^.+\\.tsx?$": "ts-jest" },
