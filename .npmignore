@@ -1,5 +1,8 @@
 tmp/
-test/
+__test__/
+src/
 node_modules/
 .travis.yml
 .eslintrc.yml
+tslint.json
+tsconfig.json
