@@ -28,14 +28,18 @@ export function setStoragePath(dir: string): void {
   storagePath = dir
 }
 
-export function get(key: string): Promise<object> {
+export interface IData {
+  [key: string]: any
+}
+
+export function get(key: string): Promise<IData> {
   if (!has(key)) {
     return Promise.resolve(Object.create(null))
   }
   return fs.readJSON(getFilePath(key))
 }
 
-export function set(key: string, data: object): Promise<object> {
+export function set(key: string, data: IData): Promise<IData> {
   if (!isPlainObject(data)) {
     throw new TypeError('The second argument must be a plain object.')
   }
@@ -43,8 +47,8 @@ export function set(key: string, data: object): Promise<object> {
   // If there is no directory, create it.
   fs.ensureDirSync(getStoragePath())
   return get(key).then(obj => {
-    const mergedDate = Object.assign({}, obj, data)
-    return fs.writeJSON(getFilePath(key), mergedDate).then(() => mergedDate)
+    const mergedData = Object.assign({}, obj, data)
+    return fs.writeJSON(getFilePath(key), mergedData).then(() => mergedData)
   })
 }
 

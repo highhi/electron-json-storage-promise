@@ -1,6 +1,6 @@
 {
   "name": "@highhi/electron-json-storage-promise",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This is inspired by electron-json-storage. Most methods return promise.",
   "main": "lib/electron-json-storage-promise.js",
   "types": "lib/electron-json-storage-promise.d.ts",
